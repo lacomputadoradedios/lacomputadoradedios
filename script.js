@@ -92,8 +92,54 @@ function smoothScroll() {
                     behavior: 'smooth',
                     block: 'start'
                 });
+
+                // Cerrar menú móvil si está abierto
+                const navList = document.querySelector('.nav-list');
+                if (navList && navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                }
             }
         });
+    });
+}
+
+// ========================================
+// Mobile Menu Toggle
+// ========================================
+
+function setupMobileMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.querySelector('.nav-list');
+
+    if (!menuToggle || !navList) return;
+
+    menuToggle.addEventListener('click', function() {
+        navList.classList.toggle('active');
+
+        // Animar el botón hamburguesa
+        const spans = this.querySelectorAll('span');
+        if (navList.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translateY(7px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translateY(-7px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', function(event) {
+        if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
+            if (navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        }
     });
 }
 
@@ -252,6 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar funciones
     createVectorPattern();
     smoothScroll();
+    setupMobileMenu();
     setupIntersectionObserver();
     setupCTAButton();
     setupKonamiCode();

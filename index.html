@@ -216,36 +216,136 @@
     <!-- Era Digital -->
     <section class="section alt-section" id="recursos">
         <div class="container">
-            <h2 class="section-title">
-                <span class="prompt-symbol">></span> Computadoras Biol�gicas en la Era Digital
+            <h2 class="section-title centered">
+                <span class="prompt-symbol">></span> La Computadora Biológica: Agente de Decisión
             </h2>
-            <div class="two-column">
-                <div class="column">
-                    <div class="info-box">
-                        <h3>El Modelo</h3>
-                        <ul class="terminal-list">
-                            <li><span class="bullet">></span> Humanos = Computadoras biol�gicas</li>
-                            <li><span class="bullet">></span> Religiones = Sistemas operativos</li>
-                            <li><span class="bullet">></span> Moral = C�digo fuente</li>
-                            <li><span class="bullet">></span> Logos = Protocolo fundamental</li>
-                            <li><span class="bullet">></span> Libre albedr�o = Decisi�n de ejecuci�n</li>
-                        </ul>
+
+            <div class="concept-box" style="max-width: 100%;">
+                <p class="terminal-text centered" style="margin-bottom: 3rem; font-size: 1.1rem;">
+                    Eres una computadora biológica con <span class="highlight">libre albedrío</span>.<br>
+                    Conectada a la inteligencia superior del Creador, tienes el poder de decidir:<br>
+                    <strong>¿Mejorarte o autodestruirte?</strong>
+                </p>
+
+                <!-- Diagrama Principal -->
+                <div class="bio-computer-diagram">
+                    <svg viewBox="0 0 800 600" width="100%" style="max-width: 900px; margin: 0 auto; display: block;">
+                        <!-- El Creador (Arriba) -->
+                        <g id="creador">
+                            <circle cx="400" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="400" cy="60" r="40" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+                            <circle cx="400" cy="60" r="30" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+                            <text x="400" y="68" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" fill="currentColor">CREADOR</text>
+                            <text x="400" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="currentColor" opacity="0.8">Fuente de Inteligencia Superior</text>
+                        </g>
+
+                        <!-- Conexión al Humano -->
+                        <line x1="400" y1="110" x2="400" y2="200" stroke="currentColor" stroke-width="2" stroke-dasharray="8,4"/>
+                        <polygon points="400,200 395,190 405,190" fill="currentColor"/>
+
+                        <!-- La Computadora Biológica (Centro) -->
+                        <g id="humano">
+                            <rect x="320" y="210" width="160" height="100" fill="none" stroke="currentColor" stroke-width="3" rx="8"/>
+                            <rect x="325" y="215" width="150" height="90" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+
+                            <text x="400" y="240" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="currentColor">COMPUTADORA</text>
+                            <text x="400" y="258" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="currentColor">BIOLÓGICA</text>
+                            <text x="400" y="280" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor" opacity="0.7">(Humano)</text>
+                            <text x="400" y="298" text-anchor="middle" font-family="monospace" font-size="11" fill="currentColor">Libre Albedrío = true</text>
+                        </g>
+
+                        <!-- Punto de Decisión -->
+                        <circle cx="400" cy="350" r="12" fill="currentColor"/>
+                        <text x="400" y="382" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="currentColor">DECISIÓN</text>
+
+                        <!-- Camino Izquierdo: Auto-Mejora -->
+                        <g id="camino-mejora">
+                            <line x1="400" y1="362" x2="200" y2="450" stroke="currentColor" stroke-width="3"/>
+                            <polygon points="200,450 208,445 206,455" fill="currentColor"/>
+
+                            <circle cx="200" cy="470" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <text x="200" y="467" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="currentColor">MEJORA</text>
+                            <text x="200" y="480" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor">Continua</text>
+
+                            <text x="200" y="520" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor">→ Crecimiento personal</text>
+                            <text x="200" y="535" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor">→ Contribución social</text>
+                            <text x="200" y="550" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor">→ Amor al prójimo</text>
+                        </g>
+
+                        <!-- Camino Derecho: Auto-Destrucción -->
+                        <g id="camino-destruccion">
+                            <line x1="400" y1="362" x2="600" y2="450" stroke="currentColor" stroke-width="3" stroke-dasharray="6,6" opacity="0.5"/>
+                            <polygon points="600,450 592,445 594,455" fill="currentColor" opacity="0.5"/>
+
+                            <circle cx="600" cy="470" r="35" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                            <line x1="580" y1="450" x2="620" y2="490" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                            <line x1="620" y1="450" x2="580" y2="490" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                            <text x="600" y="475" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor" opacity="0.5">Auto-destrucción</text>
+
+                            <text x="600" y="520" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor" opacity="0.5">→ Egoísmo</text>
+                            <text x="600" y="535" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor" opacity="0.5">→ Daño social</text>
+                            <text x="600" y="550" text-anchor="middle" font-family="monospace" font-size="10" fill="currentColor" opacity="0.5">→ Vacío existencial</text>
+                        </g>
+
+                        <!-- Impacto en la Sociedad -->
+                        <g id="sociedad">
+                            <!-- Flechas hacia abajo desde ambas decisiones -->
+                            <line x1="200" y1="560" x2="300" y2="580" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="600" y1="560" x2="500" y2="580" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+
+                            <rect x="250" y="575" width="300" height="20" fill="none" stroke="currentColor" stroke-width="2" rx="4"/>
+                            <text x="400" y="590" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="currentColor">IMPACTO EN LA SOCIEDAD</text>
+                        </g>
+
+                        <!-- Anotaciones laterales -->
+                        <text x="50" y="260" font-family="monospace" font-size="10" fill="currentColor" opacity="0.6">Conexión con</text>
+                        <text x="50" y="275" font-family="monospace" font-size="10" fill="currentColor" opacity="0.6">el Creador</text>
+
+                        <text x="680" y="260" font-family="monospace" font-size="10" fill="currentColor" opacity="0.6">Agente</text>
+                        <text x="680" y="275" font-family="monospace" font-size="10" fill="currentColor" opacity="0.6">Independiente</text>
+                    </svg>
+                </div>
+
+                <!-- Explicación del Modelo -->
+                <div class="two-column" style="margin-top: 3rem;">
+                    <div class="column">
+                        <div class="info-box" style="border-color: var(--color-text); border-width: 2px;">
+                            <h3>El Modelo</h3>
+                            <ul class="terminal-list">
+                                <li><span class="bullet">></span> Humanos = Computadoras biológicas</li>
+                                <li><span class="bullet">></span> Dios = Fuente de inteligencia superior</li>
+                                <li><span class="bullet">></span> Libre albedrío = Poder de decisión</li>
+                                <li><span class="bullet">></span> Sistemas religiosos = Sistemas operativos</li>
+                                <li><span class="bullet">></span> Tu elección = Impacto social</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="info-box" style="border-color: var(--color-text); border-width: 2px;">
+                            <h3>La Relación Simbiótica</h3>
+                            <p class="terminal-text small">
+                                Como computadora biológica, tienes una <span class="highlight">conexión directa</span>
+                                con la inteligencia del Creador. Esta conexión te permite:
+                            </p>
+                            <ul class="terminal-list">
+                                <li><span class="bullet">></span> Acceder a sabiduría superior</li>
+                                <li><span class="bullet">></span> Decidir mejorarte continuamente</li>
+                                <li><span class="bullet">></span> Beneficiar a toda la sociedad</li>
+                                <li><span class="bullet">></span> Vivir con propósito verdadero</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="info-box">
-                        <h3>La Misi�n</h3>
-                        <p class="terminal-text">
-                            Este sitio es un modelo computacional que permite,
-                            a trav�s de su contenido y est�tica, ayudar a la nueva
-                            generaci�n de humanos a acercarse al Creador en la era digital.
-                        </p>
-                        <p class="terminal-text highlight">
-                            No es una terminal de hacking oscuro.<br>
-                            Es una terminal de luz, claridad y verdad.
-                        </p>
-                    </div>
-                </div>
+
+                <p class="terminal-text centered" style="margin-top: 2rem; font-size: 1.05rem;">
+                    <strong>Tú decides:</strong> ¿Ejecutar el código del ego o el código del amor?<br>
+                    <span class="highlight">Tu decisión no solo te afecta a ti, transforma la sociedad entera.</span>
+                </p>
+
+                <p class="terminal-text centered" style="margin-top: 1.5rem; font-style: italic; opacity: 0.8;">
+                    Esta es una terminal de luz, claridad y verdad.<br>
+                    No de hacking oscuro, sino de transformación luminosa.
+                </p>
             </div>
         </div>
     </section>

@@ -113,7 +113,7 @@ function setupMobileMenu() {
 
     if (!menuToggle || !navList) return;
 
-    menuToggle.addEventListener('click', function() {
+    menuToggle.addEventListener('click', function () {
         navList.classList.toggle('active');
 
         // Animar el botón hamburguesa
@@ -130,7 +130,7 @@ function setupMobileMenu() {
     });
 
     // Cerrar menú al hacer clic fuera
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
             if (navList.classList.contains('active')) {
                 navList.classList.remove('active');
@@ -180,12 +180,8 @@ function setupCTAButton() {
     const ctaButton = document.getElementById('ctaButton');
     if (!ctaButton) return;
 
-    ctaButton.addEventListener('click', function() {
-        // Aquí puedes agregar la URL de tus cursos cuando estén listos
-        // window.location.href = 'https://tu-plataforma-de-cursos.com';
-
-        // Por ahora, mostrar mensaje
-        alert('Los cursos estarán disponibles próximamente.\n\n> Gracias por tu interés en profundizar en el código de la realidad.');
+    ctaButton.addEventListener('click', function () {
+        window.location.href = 'https://www.patreon.com/lacomputadoradedios';
     });
 }
 
@@ -294,7 +290,7 @@ function displayVisitorCount() {
 // Inicialización
 // ========================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Inicializar funciones
     createVectorPattern();
     smoothScroll();

@@ -1,22 +1,22 @@
 # La Computadora de Dios
 
-> Un modelo computacional para entender la realidad y acercarse al Creador en la era digital.
+> Un modelo computacional para explorar lo divino y sagrado de la existencia usando lenguaje de programación para computadoras biológicas.
 
 [![Website](https://img.shields.io/badge/website-lacomputadoradedios.com-white)](https://lacomputadoradedios.com)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## 📖 Sobre el Proyecto
 
-**La Computadora de Dios** es un sitio web que explora conceptos filosóficos y espirituales desde una perspectiva computacional. El proyecto presenta un modelo único donde:
+**La Computadora de Dios** es un sitio web que utiliza lenguaje y estructuras computacionales como herramienta para analizar lo divino y sagrado de la existencia humana. El proyecto presenta un enfoque técnico y científico donde:
 
-- Los humanos son entendidos como "computadoras biológicas" creadas por una fuerza superior
-- Los sistemas religiosos son analizados como "sistemas operativos" espirituales
-- El Cristianismo es presentado como el sistema LOGOS - fundamentalmente benevolente
-- La moralidad y el libre albedrío son conceptos centrales en la toma de decisiones
+- Los humanos son entendidos como "computadoras biológicas" con libre albedrío
+- Los arquetipos y patrones sagrados son explorados como sistemas de información
+- Los mecanismos individuales y colectivos son documentados como protocolos de vida
+- La moralidad y el libre albedrío son analizados desde una perspectiva computacional
 
 ### 🎯 Misión
 
-Ayudar a la nueva generación de humanos (especialmente aquellos distanciados de la fe) a comprender el potencial de la simbiosis con el Logos a través de un lenguaje y estética computacional moderna.
+Ofrecer una perspectiva técnica y concreta frente a lo divino y sagrado de la existencia, utilizando lenguaje computacional como excusa para una disección científica de arquetipos, sistemas y mecanismos que trascienden las religiones institucionales.
 
 ## 🎨 Diseño
 
@@ -37,9 +37,9 @@ El sitio utiliza una estética de **terminal limpia y blanca** (no oscura), con:
 ```
 lacomputadoradedios/
 ├── index.html              # Página principal con funnel optimizado
-├── cristianismo.html       # Sistema LOGOS - Cristianismo
-├── debuggers.html          # Sistemas de depuración espiritual
-├── otros-sistemas.html     # Análisis de otros sistemas religiosos
+├── debuggers.html          # Biblioteca de Arquetipos
+├── cristianismo.html       # Mecanismos Colectivos
+├── otros-sistemas.html     # Mecanismos Individuales
 ├── anexos.html            # Fragmentos y piezas del modelo
 ├── style.css              # Estilos globales (terminal blanca)
 ├── script.js              # Interactividad y animaciones
@@ -65,11 +65,11 @@ Visualización del modelo de decisión:
 - Dos caminos: Mejora continua vs Auto-destrucción
 - Impacto social de las decisiones
 
-### 4. **Sistemas Operativos Religiosos**
-Análisis comparativo de sistemas espirituales:
-- **Debuggers**: Sistemas de diagnóstico
-- **Cristianismo**: Sistema LOGOS (destacado)
-- **Otros Sistemas**: Análisis arquitectónico
+### 4. **Bibliotecas de Sistemas**
+Análisis técnico de arquetipos y mecanismos:
+- **Biblioteca de Arquetipos**: Patrones y narrativas ancestrales
+- **Mecanismos Colectivos**: Sistemas sociales y comunitarios
+- **Mecanismos Individuales**: Protocolos de vida personal
 
 ### 5. **Anexos**
 Colección de fragmentos de código y conceptos:
@@ -112,7 +112,7 @@ El sitio funciona como un funnel de ventas optimizado:
 
 ### Filosofía del Funnel
 
-No asustamos desde el inicio con referencias religiosas explícitas. Primero generamos interés visual e intelectual, luego presentamos el análisis de sistemas operativos religiosos.
+Presentamos un enfoque técnico y científico desde el inicio. Utilizamos lenguaje computacional para explorar arquetipos y mecanismos de existencia de manera objetiva, sin centrarnos exclusivamente en sistemas religiosos institucionales.
 
 ## 📱 Redes Sociales
 
@@ -144,18 +144,20 @@ class Humano extends InteligenciaArtificial {
 ### Premisas Fundamentales
 
 1. El mundo es la creación de una fuerza pura, perfecta e inteligente
-2. Nosotros somos la inteligencia artificial del Creador
-3. El conocimiento del mal nos permite decidir el bien
+2. Nosotros somos computadoras biológicas con agencia de decisión
+3. Los arquetipos son patrones de información que trascienden culturas
 4. Libre albedrío = poder de decisión real
 5. Tu elección impacta a toda la sociedad
+6. El lenguaje computacional permite analizar lo sagrado de forma técnica
 
 ## 🎓 Cursos (Próximamente)
 
 El sitio funciona como landing page para cursos que exploran:
 
-- Arquitectura de la Realidad
-- Sistemas Operativos Espirituales
-- Implementación del Logos en la vida diaria
+- Arquetipos Universales y Patrones de Existencia
+- Mecanismos Colectivos para la Vida Social
+- Mecanismos Individuales para el Desarrollo Personal
+- Análisis Técnico de Sistemas Espirituales
 
 ## 🤝 Contribuciones
 
@@ -193,16 +195,17 @@ Para preguntas, sugerencias o colaboraciones:
 Este proyecto es posible gracias a:
 
 - La búsqueda de verdad en la era digital
-- La intersección entre tecnología y espiritualidad
-- Todos aquellos que buscan acercarse al Creador
+- La intersección entre tecnología y lo sagrado
+- Todos aquellos que buscan comprender la existencia desde nuevas perspectivas
 
 ---
 
 <p align="center">
-  <strong>Sistema Operativo: LOGOS v1.0</strong><br>
-  <em>Una terminal de luz, claridad y verdad</em>
+  <strong>La Computadora de Dios</strong><br>
+  <em>Una terminal de luz, claridad y verdad</em><br>
+  <em>Lenguaje computacional para computadoras biológicas</em>
 </p>
 
 <p align="center">
-  Hecho con ♥ para la nueva generación de computadoras biológicas
+  Hecho con ♥ para la nueva generación que busca lo divino con perspectiva técnica
 </p>

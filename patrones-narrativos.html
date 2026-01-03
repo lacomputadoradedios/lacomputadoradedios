@@ -1286,31 +1286,531 @@ Peligro: Tiranía, control excesivo</code></pre>
                     <p>
                         Cada situación de tu vida activa diferentes arquetipos:
                     </p>
-                    <div class="code-block">
-                        <div class="code-header">arquetipos_en_accion.js</div>
-                        <div class="code-content">
-                            <pre><code><span class="keyword">function</span> <span class="function">analizarVida</span>(situacion) {
-    <span class="keyword">switch</span>(situacion) {
-        <span class="keyword">case</span> <span class="string">"enfrentando_miedo"</span>:
-            <span class="keyword">return</span> activar(ArquetipoHeroe);
 
-        <span class="keyword">case</span> <span class="string">"cuidando_a_alguien"</span>:
-            <span class="keyword">return</span> activar(ArquetipoCuidador);
+                    <!-- Interactive Life Situations Arcade -->
+                    <div class="interactive-arcade" id="situacionesArcade">
+                        <div class="arcade-header">
+                            <span class="arcade-title">🎯 ARQUETIPOS EN ACCIÓN</span>
+                            <span class="arcade-subtitle">// Life Situation Analyzer</span>
+                        </div>
 
-        <span class="keyword">case</span> <span class="string">"cuestionando_sistema"</span>:
-            <span class="keyword">return</span> activar(ArquetipoRebelde);
+                        <div class="arcade-screen" style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); padding: 2rem;">
 
-        <span class="keyword">case</span> <span class="string">"creando_algo_nuevo"</span>:
-            <span class="keyword">return</span> activar(ArquetipoCreador);
+                            <div class="analyzer-container">
+                                <!-- Situations Panel -->
+                                <div class="situations-panel">
+                                    <div class="panel-header">
+                                        <span class="panel-icon">📋</span>
+                                        <span class="panel-title">SITUACIONES DE VIDA</span>
+                                    </div>
+                                    <div class="situations-list">
+                                        <!-- Situations will be loaded here -->
+                                    </div>
+                                </div>
 
-        <span class="keyword">case</span> <span class="string">"buscando_verdad"</span>:
-            <span class="keyword">return</span> activar(ArquetipoSabio);
-    }
-}
+                                <!-- Activation Display -->
+                                <div class="activation-display">
+                                    <div class="display-header">
+                                        <span class="display-icon">⚡</span>
+                                        <span class="display-title">ARQUETIPOS ACTIVOS</span>
+                                    </div>
+                                    <div class="active-arquetipos" id="activeArquetipos">
+                                        <!-- Active archetypes will appear here -->
+                                    </div>
+                                </div>
+                            </div>
 
-<span class="comment">// Tu vida es una mezcla de arquetipos ejecutándose</span></code></pre>
+                            <!-- Current Mix Dashboard -->
+                            <div class="mix-dashboard" id="mixDashboard" style="display: none;">
+                                <div class="dashboard-header">
+                                    <span class="dashboard-icon">📊</span>
+                                    <span class="dashboard-title">TU MEZCLA ACTUAL</span>
+                                </div>
+                                <div class="arquetipos-bars">
+                                    <!-- Bars will be generated here -->
+                                </div>
+                                <div class="dashboard-message">
+                                    Tu vida es una mezcla de arquetipos ejecutándose
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="arcade-controls">
+                            <button class="control-btn" id="resetSituations">
+                                <span>↺ REINICIAR</span>
+                            </button>
+                            <div class="arcade-stats">
+                                <span>Situaciones analizadas: <strong id="situationsCount">0</strong></span>
+                            </div>
                         </div>
                     </div>
+
+                    <style>
+                        .analyzer-container {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 1.5rem;
+                            margin-bottom: 2rem;
+                        }
+
+                        .situations-panel,
+                        .activation-display {
+                            background: white;
+                            border: 2px solid var(--color-text);
+                            border-radius: var(--border-radius);
+                            padding: 1.5rem;
+                            min-height: 400px;
+                        }
+
+                        .panel-header,
+                        .display-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid var(--color-gray-medium);
+                        }
+
+                        .panel-icon,
+                        .display-icon {
+                            font-size: 1.5rem;
+                        }
+
+                        .panel-title,
+                        .display-title {
+                            font-weight: bold;
+                            font-size: 1.1rem;
+                        }
+
+                        .situations-list {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.75rem;
+                        }
+
+                        .situation-item {
+                            background: var(--color-gray-light);
+                            border: 2px solid var(--color-gray-medium);
+                            border-radius: var(--border-radius);
+                            padding: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            position: relative;
+                        }
+
+                        .situation-item:hover {
+                            border-color: var(--color-text);
+                            transform: translateX(5px);
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .situation-item.selected {
+                            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+                            border-color: #4CAF50;
+                            font-weight: bold;
+                        }
+
+                        .situation-item.selected::before {
+                            content: "✓";
+                            position: absolute;
+                            left: 0.5rem;
+                            color: #4CAF50;
+                            font-weight: bold;
+                        }
+
+                        .situation-text {
+                            margin-left: 1.5rem;
+                        }
+
+                        .situation-label {
+                            font-size: 0.9rem;
+                            font-weight: bold;
+                            display: block;
+                            margin-bottom: 0.25rem;
+                        }
+
+                        .situation-desc {
+                            font-size: 0.75rem;
+                            opacity: 0.7;
+                        }
+
+                        .active-arquetipos {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1rem;
+                        }
+
+                        .arquetipo-activation {
+                            background: white;
+                            border: 2px solid var(--color-text);
+                            border-radius: var(--border-radius);
+                            padding: 1rem;
+                            animation: activationPulse 0.5s ease;
+                        }
+
+                        @keyframes activationPulse {
+                            0% {
+                                transform: scale(0.9);
+                                opacity: 0;
+                            }
+                            50% {
+                                transform: scale(1.05);
+                            }
+                            100% {
+                                transform: scale(1);
+                                opacity: 1;
+                            }
+                        }
+
+                        .activation-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 0.75rem;
+                            padding-bottom: 0.5rem;
+                            border-bottom: 1px solid var(--color-gray-medium);
+                        }
+
+                        .activation-icon {
+                            font-size: 2rem;
+                        }
+
+                        .activation-name {
+                            font-weight: bold;
+                            font-size: 1.1rem;
+                        }
+
+                        .activation-trigger {
+                            font-size: 0.85rem;
+                            color: #666;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .activation-description {
+                            font-size: 0.9rem;
+                            line-height: 1.5;
+                        }
+
+                        .mix-dashboard {
+                            background: white;
+                            border: 3px solid var(--color-text);
+                            border-radius: var(--border-radius);
+                            padding: 1.5rem;
+                            margin-top: 2rem;
+                            animation: slideUp 0.5s ease;
+                        }
+
+                        @keyframes slideUp {
+                            from {
+                                opacity: 0;
+                                transform: translateY(20px);
+                            }
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+
+                        .dashboard-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid var(--color-gray-medium);
+                        }
+
+                        .dashboard-icon {
+                            font-size: 1.5rem;
+                        }
+
+                        .dashboard-title {
+                            font-weight: bold;
+                            font-size: 1.1rem;
+                        }
+
+                        .arquetipos-bars {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.75rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        .arquetipo-bar-item {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.25rem;
+                        }
+
+                        .bar-label {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 0.85rem;
+                            font-weight: bold;
+                        }
+
+                        .bar-container {
+                            width: 100%;
+                            height: 24px;
+                            background: var(--color-gray-light);
+                            border: 1px solid var(--color-gray-medium);
+                            border-radius: var(--border-radius);
+                            overflow: hidden;
+                            position: relative;
+                        }
+
+                        .bar-fill {
+                            height: 100%;
+                            background: linear-gradient(90deg, #4CAF50, #2E7D32);
+                            transition: width 0.5s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-end;
+                            padding-right: 0.5rem;
+                            color: white;
+                            font-size: 0.75rem;
+                            font-weight: bold;
+                        }
+
+                        .dashboard-message {
+                            text-align: center;
+                            font-style: italic;
+                            color: var(--color-text);
+                            opacity: 0.8;
+                            margin-top: 1rem;
+                            padding-top: 1rem;
+                            border-top: 1px solid var(--color-gray-medium);
+                        }
+
+                        @media (max-width: 768px) {
+                            .analyzer-container {
+                                grid-template-columns: 1fr;
+                            }
+                        }
+                    </style>
+
+                    <script>
+                        (function() {
+                            const situationsData = [
+                                {
+                                    id: 'enfrentando_miedo',
+                                    label: 'Enfrentando un Miedo',
+                                    desc: 'Cuando debes hacer algo que te asusta',
+                                    arquetipo: {
+                                        nombre: 'HÉROE',
+                                        icono: '⚔️',
+                                        descripcion: 'El coraje surge cuando enfrentas lo que temes. El Héroe no es quien no tiene miedo, sino quien actúa a pesar de él.'
+                                    }
+                                },
+                                {
+                                    id: 'cuidando_alguien',
+                                    label: 'Cuidando a Alguien',
+                                    desc: 'Cuando pones las necesidades de otros primero',
+                                    arquetipo: {
+                                        nombre: 'CUIDADOR',
+                                        icono: '🤲',
+                                        descripcion: 'La compasión te mueve a servir. El Cuidador encuentra propósito en nutrir y proteger a otros.'
+                                    }
+                                },
+                                {
+                                    id: 'cuestionando_sistema',
+                                    label: 'Cuestionando el Sistema',
+                                    desc: 'Cuando ves injusticia y quieres cambiarla',
+                                    arquetipo: {
+                                        nombre: 'REBELDE',
+                                        icono: '⚡',
+                                        descripcion: 'La indignación ante lo corrupto activa al Rebelde. Quien desafía lo establecido para crear algo mejor.'
+                                    }
+                                },
+                                {
+                                    id: 'creando_algo_nuevo',
+                                    label: 'Creando Algo Nuevo',
+                                    desc: 'Cuando manifiestas una visión en realidad',
+                                    arquetipo: {
+                                        nombre: 'CREADOR',
+                                        icono: '🎨',
+                                        descripcion: 'La imaginación busca expresión. El Creador transforma ideas en forma material, participando del acto divino de crear.'
+                                    }
+                                },
+                                {
+                                    id: 'buscando_verdad',
+                                    label: 'Buscando la Verdad',
+                                    desc: 'Cuando investigas profundamente para entender',
+                                    arquetipo: {
+                                        nombre: 'SABIO',
+                                        icono: '📚',
+                                        descripcion: 'La curiosidad por la verdad activa al Sabio. Quien busca comprender la naturaleza de la realidad.'
+                                    }
+                                },
+                                {
+                                    id: 'explorando_nuevo',
+                                    label: 'Explorando lo Desconocido',
+                                    desc: 'Cuando te aventuras fuera de tu zona de confort',
+                                    arquetipo: {
+                                        nombre: 'EXPLORADOR',
+                                        icono: '🧭',
+                                        descripcion: 'El deseo de descubrir activa al Explorador. Quien expande fronteras y busca nuevas experiencias.'
+                                    }
+                                },
+                                {
+                                    id: 'liderando_grupo',
+                                    label: 'Liderando un Grupo',
+                                    desc: 'Cuando organizas y diriges a otros',
+                                    arquetipo: {
+                                        nombre: 'GOBERNANTE',
+                                        icono: '👑',
+                                        descripcion: 'La responsabilidad por el orden activa al Gobernante. Quien crea estructura y lidera con visión.'
+                                    }
+                                },
+                                {
+                                    id: 'conectando_pasion',
+                                    label: 'Conectando con Pasión',
+                                    desc: 'Cuando te entregas profundamente a algo o alguien',
+                                    arquetipo: {
+                                        nombre: 'AMANTE',
+                                        icono: '❤️',
+                                        descripcion: 'La pasión y devoción activan al Amante. Quien busca conexión profunda y significativa.'
+                                    }
+                                },
+                                {
+                                    id: 'transformando_situacion',
+                                    label: 'Transformando una Situación',
+                                    desc: 'Cuando cambias algo aparentemente imposible',
+                                    arquetipo: {
+                                        nombre: 'MAGO',
+                                        icono: '🔮',
+                                        descripcion: 'El poder de transformar activa al Mago. Quien hace posible lo que otros creen imposible.'
+                                    }
+                                },
+                                {
+                                    id: 'disfrutando_momento',
+                                    label: 'Disfrutando el Momento',
+                                    desc: 'Cuando encuentras alegría y humor en la vida',
+                                    arquetipo: {
+                                        nombre: 'BUFÓN',
+                                        icono: '🎭',
+                                        descripcion: 'La ligereza y el juego activan al Bufón. Quien recuerda que la vida también debe disfrutarse.'
+                                    }
+                                }
+                            ];
+
+                            let selectedSituations = new Set();
+                            let arquetipoCount = {};
+
+                            const situationsList = document.querySelector('.situations-list');
+                            const activeArquetipos = document.getElementById('activeArquetipos');
+                            const mixDashboard = document.getElementById('mixDashboard');
+                            const situationsCountEl = document.getElementById('situationsCount');
+                            const resetBtn = document.getElementById('resetSituations');
+
+                            // Create situation items
+                            situationsData.forEach(situation => {
+                                const item = document.createElement('div');
+                                item.className = 'situation-item';
+                                item.innerHTML = `
+                                    <div class="situation-text">
+                                        <span class="situation-label">${situation.label}</span>
+                                        <span class="situation-desc">${situation.desc}</span>
+                                    </div>
+                                `;
+                                item.addEventListener('click', () => toggleSituation(situation, item));
+                                situationsList.appendChild(item);
+                            });
+
+                            function toggleSituation(situation, itemElement) {
+                                if (selectedSituations.has(situation.id)) {
+                                    // Deselect
+                                    selectedSituations.delete(situation.id);
+                                    itemElement.classList.remove('selected');
+                                    arquetipoCount[situation.arquetipo.nombre] = (arquetipoCount[situation.arquetipo.nombre] || 1) - 1;
+                                } else {
+                                    // Select
+                                    selectedSituations.add(situation.id);
+                                    itemElement.classList.add('selected');
+                                    arquetipoCount[situation.arquetipo.nombre] = (arquetipoCount[situation.arquetipo.nombre] || 0) + 1;
+                                    addActivation(situation);
+                                }
+
+                                situationsCountEl.textContent = selectedSituations.size;
+                                updateDashboard();
+                            }
+
+                            function addActivation(situation) {
+                                const activation = document.createElement('div');
+                                activation.className = 'arquetipo-activation';
+                                activation.id = `activation-${situation.id}`;
+                                activation.innerHTML = `
+                                    <div class="activation-header">
+                                        <span class="activation-icon">${situation.arquetipo.icono}</span>
+                                        <span class="activation-name">${situation.arquetipo.nombre}</span>
+                                    </div>
+                                    <div class="activation-trigger">▶ Activado por: "${situation.label}"</div>
+                                    <div class="activation-description">${situation.arquetipo.descripcion}</div>
+                                `;
+
+                                // Remove old activation if exists
+                                const oldActivation = document.getElementById(`activation-${situation.id}`);
+                                if (oldActivation) {
+                                    oldActivation.remove();
+                                } else {
+                                    activeArquetipos.insertBefore(activation, activeArquetipos.firstChild);
+                                }
+                            }
+
+                            function updateDashboard() {
+                                if (selectedSituations.size === 0) {
+                                    mixDashboard.style.display = 'none';
+                                    activeArquetipos.innerHTML = '';
+                                    return;
+                                }
+
+                                mixDashboard.style.display = 'block';
+
+                                const barsContainer = document.querySelector('.arquetipos-bars');
+                                barsContainer.innerHTML = '';
+
+                                // Sort by count
+                                const sorted = Object.entries(arquetipoCount)
+                                    .filter(([_, count]) => count > 0)
+                                    .sort((a, b) => b[1] - a[1]);
+
+                                const maxCount = Math.max(...sorted.map(([_, count]) => count));
+
+                                sorted.forEach(([nombre, count]) => {
+                                    const percentage = (count / maxCount) * 100;
+                                    const barItem = document.createElement('div');
+                                    barItem.className = 'arquetipo-bar-item';
+                                    barItem.innerHTML = `
+                                        <div class="bar-label">
+                                            <span>${nombre}</span>
+                                            <span>${count}x</span>
+                                        </div>
+                                        <div class="bar-container">
+                                            <div class="bar-fill" style="width: ${percentage}%">
+                                                ${Math.round(percentage)}%
+                                            </div>
+                                        </div>
+                                    `;
+                                    barsContainer.appendChild(barItem);
+                                });
+                            }
+
+                            function reset() {
+                                selectedSituations.clear();
+                                arquetipoCount = {};
+                                situationsCountEl.textContent = '0';
+                                document.querySelectorAll('.situation-item').forEach(item => {
+                                    item.classList.remove('selected');
+                                });
+                                activeArquetipos.innerHTML = '';
+                                mixDashboard.style.display = 'none';
+                            }
+
+                            resetBtn.addEventListener('click', reset);
+                        })();
+                    </script>
 
                     <h3 style="margin-top: 2rem;">Identificando tus Arquetipos Dominantes</h3>
                     <p>
@@ -1996,40 +2496,523 @@ Peligro: Tiranía, control excesivo</code></pre>
                         Para usar arquetipos como herramienta de transformación:
                     </p>
 
-                    <div class="code-block">
-                        <div class="code-header">protocolo_arquetipal.js</div>
-                        <div class="code-content">
-                            <pre><code><span class="comment">// 1. IDENTIFICAR arquetipos activos en tu vida</span>
-<span class="keyword">function</span> <span class="function">identificar</span>() {
-    observarPatronesRecurrentes();
-    notarPersonajesQueAdmiras();
-    reconocerRolesQueAsumes();
-}
+                    <!-- Interactive Protocol Arcade -->
+                    <div class="interactive-arcade" id="protocoloArcade">
+                        <div class="arcade-header">
+                            <span class="arcade-title">🔄 PROTOCOLO ARQUETIPAL</span>
+                            <span class="arcade-subtitle">// 4-Step Transformation Process</span>
+                        </div>
 
-<span class="comment">// 2. EVALUAR si están en luz o sombra</span>
-<span class="keyword">function</span> <span class="function">evaluar</span>(arquetipo) {
-    <span class="keyword">if</span> (arquetipo.produceSufrimiento()) {
-        <span class="keyword">return</span> <span class="string">"SOMBRA"</span>; <span class="comment">// Necesita corrección</span>
-    }
-    <span class="keyword">return</span> <span class="string">"LUZ"</span>; <span class="comment">// Funcionando bien</span>
-}
+                        <div class="arcade-screen" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); padding: 2rem;">
 
-<span class="comment">// 3. INTEGRAR arquetipos faltantes</span>
-<span class="keyword">function</span> <span class="function">integrar</span>() {
-    <span class="comment">// Si solo eres Héroe, desarrolla Cuidador</span>
-    <span class="comment">// Si solo eres Sabio, desarrolla Amante</span>
-    <span class="comment">// Equilibrio = todos los arquetipos disponibles</span>
-    activarArquetiposFaltantes();
-}
+                            <!-- Progress Steps -->
+                            <div class="protocol-progress">
+                                <div class="progress-step active" data-step="0">
+                                    <div class="step-number">1</div>
+                                    <div class="step-name">IDENTIFICAR</div>
+                                </div>
+                                <div class="progress-connector"></div>
+                                <div class="progress-step" data-step="1">
+                                    <div class="step-number">2</div>
+                                    <div class="step-name">EVALUAR</div>
+                                </div>
+                                <div class="progress-connector"></div>
+                                <div class="progress-step" data-step="2">
+                                    <div class="step-number">3</div>
+                                    <div class="step-name">INTEGRAR</div>
+                                </div>
+                                <div class="progress-connector"></div>
+                                <div class="progress-step" data-step="3">
+                                    <div class="step-number">4</div>
+                                    <div class="step-name">TRANSMUTAR</div>
+                                </div>
+                            </div>
 
-<span class="comment">// 4. TRANSMUTAR sombras en luz</span>
-<span class="keyword">function</span> <span class="function">transmutar</span>(arquetipoSombra) {
-    reconocerIntenciones();
-    alinearConLOGOS();
-    ejecutarVersionLuz();
-}</code></pre>
+                            <!-- Step Content -->
+                            <div class="protocol-content" id="protocolContent">
+                                <!-- Content will be loaded here -->
+                            </div>
+
+                            <!-- Navigation -->
+                            <div class="protocol-navigation">
+                                <button class="protocol-btn" id="prevStep" style="display: none;">
+                                    <span>← ANTERIOR</span>
+                                </button>
+                                <button class="protocol-btn primary" id="nextStep">
+                                    <span>SIGUIENTE →</span>
+                                </button>
+                                <button class="protocol-btn success" id="completeProtocol" style="display: none;">
+                                    <span>✓ COMPLETAR</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="arcade-controls">
+                            <button class="control-btn" id="resetProtocol">
+                                <span>↺ REINICIAR</span>
+                            </button>
+                            <div class="arcade-stats">
+                                <span>Progreso: <strong id="protocolProgress">0</strong>/4 pasos</span>
+                            </div>
                         </div>
                     </div>
+
+                    <style>
+                        .protocol-progress {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 2rem;
+                            padding: 1.5rem;
+                            background: white;
+                            border: 2px solid var(--color-text);
+                            border-radius: var(--border-radius);
+                        }
+
+                        .progress-step {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 0.5rem;
+                            opacity: 0.4;
+                            transition: all 0.3s ease;
+                        }
+
+                        .progress-step.active {
+                            opacity: 1;
+                        }
+
+                        .progress-step.completed {
+                            opacity: 0.8;
+                        }
+
+                        .step-number {
+                            width: 50px;
+                            height: 50px;
+                            border: 3px solid var(--color-text);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                            background: white;
+                            transition: all 0.3s ease;
+                        }
+
+                        .progress-step.active .step-number {
+                            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                            color: white;
+                            border-color: #4CAF50;
+                            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+                            animation: pulse 2s infinite;
+                        }
+
+                        .progress-step.completed .step-number {
+                            background: linear-gradient(135deg, #FFD700, #FFA500);
+                            color: white;
+                            border-color: #FFD700;
+                        }
+
+                        .progress-step.completed .step-number::after {
+                            content: "✓";
+                            position: absolute;
+                            font-size: 1.5rem;
+                        }
+
+                        .step-name {
+                            font-size: 0.75rem;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+
+                        .progress-connector {
+                            width: 60px;
+                            height: 3px;
+                            background: var(--color-gray-medium);
+                            margin: 0 0.5rem;
+                        }
+
+                        .progress-step.completed + .progress-connector {
+                            background: linear-gradient(90deg, #FFD700, #FFA500);
+                        }
+
+                        .protocol-content {
+                            background: white;
+                            border: 2px solid var(--color-text);
+                            border-radius: var(--border-radius);
+                            padding: 2rem;
+                            min-height: 400px;
+                            margin-bottom: 2rem;
+                        }
+
+                        .step-content {
+                            animation: fadeInSlide 0.5s ease;
+                        }
+
+                        @keyframes fadeInSlide {
+                            from {
+                                opacity: 0;
+                                transform: translateX(20px);
+                            }
+                            to {
+                                opacity: 1;
+                                transform: translateX(0);
+                            }
+                        }
+
+                        .step-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 1rem;
+                            border-bottom: 2px solid var(--color-gray-medium);
+                        }
+
+                        .step-icon {
+                            font-size: 2.5rem;
+                        }
+
+                        .step-title {
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        }
+
+                        .step-description {
+                            font-size: 1rem;
+                            line-height: 1.6;
+                            margin-bottom: 1.5rem;
+                        }
+
+                        .step-actions {
+                            background: var(--color-gray-light);
+                            border-radius: var(--border-radius);
+                            padding: 1.5rem;
+                            margin-bottom: 1.5rem;
+                        }
+
+                        .action-title {
+                            font-weight: bold;
+                            margin-bottom: 1rem;
+                            font-size: 1.1rem;
+                        }
+
+                        .action-list {
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+                        }
+
+                        .action-item {
+                            padding: 0.75rem;
+                            margin-bottom: 0.5rem;
+                            background: white;
+                            border: 2px solid var(--color-gray-medium);
+                            border-radius: var(--border-radius);
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            position: relative;
+                            padding-left: 2.5rem;
+                        }
+
+                        .action-item:hover {
+                            border-color: var(--color-text);
+                            transform: translateX(5px);
+                        }
+
+                        .action-item.checked {
+                            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+                            border-color: #4CAF50;
+                        }
+
+                        .action-item.checked::before {
+                            content: "✓";
+                            position: absolute;
+                            left: 0.75rem;
+                            color: #4CAF50;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                        }
+
+                        .step-insight {
+                            background: linear-gradient(135deg, #FFF9C4, #FFEB3B);
+                            border: 2px solid #FBC02D;
+                            border-radius: var(--border-radius);
+                            padding: 1rem;
+                            font-style: italic;
+                            margin-top: 1rem;
+                        }
+
+                        .protocol-navigation {
+                            display: flex;
+                            justify-content: space-between;
+                            gap: 1rem;
+                        }
+
+                        .protocol-btn {
+                            flex: 1;
+                            background: white;
+                            border: 2px solid var(--color-text);
+                            padding: 1rem 2rem;
+                            border-radius: var(--border-radius);
+                            font-family: var(--font-mono);
+                            font-weight: bold;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        }
+
+                        .protocol-btn:hover {
+                            background: var(--color-text);
+                            color: var(--color-bg);
+                        }
+
+                        .protocol-btn.primary {
+                            background: var(--color-text);
+                            color: var(--color-bg);
+                        }
+
+                        .protocol-btn.primary:hover {
+                            background: white;
+                            color: var(--color-text);
+                        }
+
+                        .protocol-btn.success {
+                            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                            color: white;
+                            border-color: #4CAF50;
+                        }
+
+                        .protocol-btn.success:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+                        }
+
+                        .completion-message {
+                            text-align: center;
+                            padding: 2rem;
+                        }
+
+                        .completion-icon {
+                            font-size: 4rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        .completion-title {
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            margin-bottom: 1rem;
+                        }
+
+                        .completion-text {
+                            font-size: 1rem;
+                            line-height: 1.6;
+                            margin-bottom: 1rem;
+                        }
+
+                        @media (max-width: 768px) {
+                            .protocol-progress {
+                                flex-wrap: wrap;
+                            }
+
+                            .progress-connector {
+                                transform: rotate(90deg);
+                                width: 40px;
+                                margin: 0.5rem 0;
+                            }
+
+                            .protocol-navigation {
+                                flex-direction: column;
+                            }
+                        }
+                    </style>
+
+                    <script>
+                        (function() {
+                            const stepsData = [
+                                {
+                                    icon: '🔍',
+                                    title: '1. IDENTIFICAR',
+                                    description: 'Identifica los arquetipos activos en tu vida. Son los patrones que se repiten constantemente en tus acciones, decisiones y relaciones.',
+                                    actions: [
+                                        'Observar patrones recurrentes en tu comportamiento',
+                                        'Notar qué personajes de historias admiras profundamente',
+                                        'Reconocer qué roles asumes naturalmente en grupos',
+                                        'Identificar qué te motiva fundamentalmente en la vida'
+                                    ],
+                                    insight: '💡 Tus arquetipos dominantes son aquellos que activas automáticamente. Son tu "configuración por defecto".'
+                                },
+                                {
+                                    icon: '⚖️',
+                                    title: '2. EVALUAR',
+                                    description: 'Evalúa si tus arquetipos están funcionando en LUZ (evolucionados) o en SOMBRA (corruptos). La clave: ¿producen sufrimiento?',
+                                    actions: [
+                                        '¿Este arquetipo me causa sufrimiento a mí?',
+                                        '¿Este arquetipo causa sufrimiento a otros?',
+                                        '¿Actúo desde el miedo o desde el amor?',
+                                        '¿Mis intenciones son egoístas o están alineadas con el bien?'
+                                    ],
+                                    insight: '💡 Si un arquetipo produce sufrimiento (tuyo o ajeno), está en SOMBRA y necesita corrección. Si genera paz y crecimiento, está en LUZ.'
+                                },
+                                {
+                                    icon: '🧩',
+                                    title: '3. INTEGRAR',
+                                    description: 'Integra arquetipos faltantes. Una persona madura tiene acceso a TODOS los arquetipos según la situación lo requiera.',
+                                    actions: [
+                                        'Si solo eres Héroe, desarrolla al Cuidador (compasión)',
+                                        'Si solo eres Sabio, desarrolla al Amante (pasión)',
+                                        'Si solo eres Creador, desarrolla al Gobernante (orden)',
+                                        'Practica activar arquetipos que no usas naturalmente'
+                                    ],
+                                    insight: '💡 El desequilibrio viene de sobre-identificarse con un solo arquetipo. La maestría es tener todos disponibles y elegir el apropiado.'
+                                },
+                                {
+                                    icon: '⚗️',
+                                    title: '4. TRANSMUTAR',
+                                    description: 'Transmuta las sombras en luz. Convierte los arquetipos corruptos en sus versiones evolucionadas mediante consciencia e intención.',
+                                    actions: [
+                                        'Reconocer las intenciones detrás de tus acciones',
+                                        'Alinear esas intenciones con LOGOS (Verdad, Amor, Justicia, Moralidad)',
+                                        'Ejecutar la versión LUZ del arquetipo conscientemente',
+                                        'Repetir hasta que la versión LUZ se vuelva automática'
+                                    ],
+                                    insight: '💡 La transmutación no es suprimir el arquetipo, es elevarlo. El Héroe-Sombra (arrogante) se transmuta en Héroe-Luz (valiente que protege).'
+                                }
+                            ];
+
+                            let currentStep = 0;
+                            let completedActions = {};
+
+                            const protocolContent = document.getElementById('protocolContent');
+                            const prevBtn = document.getElementById('prevStep');
+                            const nextBtn = document.getElementById('nextStep');
+                            const completeBtn = document.getElementById('completeProtocol');
+                            const resetBtn = document.getElementById('resetProtocol');
+                            const progressEl = document.getElementById('protocolProgress');
+                            const progressSteps = document.querySelectorAll('.progress-step');
+
+                            function renderStep(stepIndex) {
+                                const step = stepsData[stepIndex];
+
+                                if (stepIndex === stepsData.length) {
+                                    // Show completion
+                                    protocolContent.innerHTML = `
+                                        <div class="completion-message">
+                                            <div class="completion-icon">🎉</div>
+                                            <div class="completion-title">¡PROTOCOLO COMPLETADO!</div>
+                                            <div class="completion-text">
+                                                Has completado el Protocolo Arquetipal de 4 pasos.<br>
+                                                Ahora tienes las herramientas para trabajar conscientemente con los arquetipos en tu vida.<br><br>
+                                                <strong>Este no es un ejercicio de una sola vez.</strong><br>
+                                                Repite este protocolo regularmente. Los arquetipos son dinámicos y evolucionan contigo.
+                                            </div>
+                                        </div>
+                                    `;
+                                    nextBtn.style.display = 'none';
+                                    completeBtn.style.display = 'none';
+                                    return;
+                                }
+
+                                completedActions[stepIndex] = completedActions[stepIndex] || [];
+
+                                protocolContent.innerHTML = `
+                                    <div class="step-content">
+                                        <div class="step-header">
+                                            <span class="step-icon">${step.icon}</span>
+                                            <span class="step-title">${step.title}</span>
+                                        </div>
+                                        <div class="step-description">${step.description}</div>
+                                        <div class="step-actions">
+                                            <div class="action-title">Acciones a realizar:</div>
+                                            <ul class="action-list">
+                                                ${step.actions.map((action, i) => `
+                                                    <li class="action-item ${completedActions[stepIndex].includes(i) ? 'checked' : ''}"
+                                                        data-action="${i}">
+                                                        ${action}
+                                                    </li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+                                        <div class="step-insight">${step.insight}</div>
+                                    </div>
+                                `;
+
+                                // Add action listeners
+                                document.querySelectorAll('.action-item').forEach(item => {
+                                    item.addEventListener('click', function() {
+                                        const actionIndex = parseInt(this.dataset.action);
+                                        toggleAction(stepIndex, actionIndex, this);
+                                    });
+                                });
+
+                                updateProgress();
+                                updateNavigation();
+                            }
+
+                            function toggleAction(stepIndex, actionIndex, element) {
+                                if (completedActions[stepIndex].includes(actionIndex)) {
+                                    completedActions[stepIndex] = completedActions[stepIndex].filter(i => i !== actionIndex);
+                                    element.classList.remove('checked');
+                                } else {
+                                    completedActions[stepIndex].push(actionIndex);
+                                    element.classList.add('checked');
+                                }
+                            }
+
+                            function updateProgress() {
+                                progressSteps.forEach((step, i) => {
+                                    step.classList.remove('active', 'completed');
+                                    if (i < currentStep) {
+                                        step.classList.add('completed');
+                                    } else if (i === currentStep) {
+                                        step.classList.add('active');
+                                    }
+                                });
+                                progressEl.textContent = currentStep;
+                            }
+
+                            function updateNavigation() {
+                                prevBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+
+                                if (currentStep === stepsData.length - 1) {
+                                    nextBtn.style.display = 'none';
+                                    completeBtn.style.display = 'inline-block';
+                                } else {
+                                    nextBtn.style.display = 'inline-block';
+                                    completeBtn.style.display = 'none';
+                                }
+                            }
+
+                            function nextStep() {
+                                if (currentStep < stepsData.length) {
+                                    currentStep++;
+                                    renderStep(currentStep);
+                                }
+                            }
+
+                            function prevStep() {
+                                if (currentStep > 0) {
+                                    currentStep--;
+                                    renderStep(currentStep);
+                                }
+                            }
+
+                            function reset() {
+                                currentStep = 0;
+                                completedActions = {};
+                                renderStep(currentStep);
+                            }
+
+                            nextBtn.addEventListener('click', nextStep);
+                            prevBtn.addEventListener('click', prevStep);
+                            completeBtn.addEventListener('click', nextStep);
+                            resetBtn.addEventListener('click', reset);
+
+                            // Initialize
+                            renderStep(currentStep);
+                        })();
+                    </script>
                 </section>
 
                 <!-- La Verdad Final -->
